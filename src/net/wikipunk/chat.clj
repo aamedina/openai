@@ -18,6 +18,8 @@
 (defn chat
   "Chat with GPT-3.5 from the comfort of your Clojure REPL.
 
+  End the chat by entering :q
+
   component -- a started instance of net.wikipunk.openai.Client
 
   :prompt -- Describe the personality of the virtual agent you
