@@ -30,4 +30,4 @@
    :rdfs/domain             :openai.chat/Message
    :rdfs/range              :xsd/string
    :jsonschema/propertyName "name"
-   :jsonschema/oneOf        ["example_user" "example_application"]})
+   :jsonschema/oneOf        ["example_user" "example_assistant"]})
