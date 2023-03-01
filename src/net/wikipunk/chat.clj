@@ -29,8 +29,7 @@
 
   :messages -- A vector of ChatML message history between you and the agent
   you want to seed the conversation with."
-  [component & {:keys [prompt messages username memory]
-                :or   {memory 32}}]
+  [component & {:keys [prompt messages username]}]
   (loop [line    (read-line)
          history (into [{:openai.chat/role    "system"
                          :openai.chat/content prompt}]
