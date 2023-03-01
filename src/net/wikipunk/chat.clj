@@ -28,27 +28,33 @@
   Better prompts = better results.
 
   :messages -- A vector of ChatML message history between you and the agent
-  you want to seed the conversation with."
-  [component & {:keys [prompt messages username]}]
-  (loop [line    (read-line)
-         history (into [{:openai.chat/role    "system"
-                         :openai.chat/content prompt}]
-                       messages)]
-    (if (= line ":q")
-      history
-      (let [_        (println "user:" line)
-            user     {:openai.chat/role    "user"
-                      :openai.chat/content line}
-            response (-> (openai/chat component
-                                      :messages (mapv (fn [msg]
-                                                        (set/rename-keys msg {:openai.chat/role    "role"    
-                                                                              :openai.chat/content "content"
-                                                                              :openai.chat/name    "name"}))
-                                                      (conj history user)))
-                         (get-in ["choices" 0 "message"])
-                         (set/rename-keys {"role"    :openai.chat/role
-                                           "content" :openai.chat/content
-                                           "name"    :openai.chat/name}))]
-        (println (str username ":") (:openai.chat/content response))
-        (recur (read-line)
-               (conj history user response))))))
+  you want to seed the conversation with.
+
+  :memory -- Maximum number of messages to prompt with for context
+  (still preserving history for user inspection after the chat ends)."
+  [component & {:keys [prompt messages username memory]
+                :or   {memory 64}}]
+  (let []
+    (loop [line    (read-line)
+           history messages]
+      (println "user:" line)
+      (if (= line ":q")
+        history
+        (let [user     {:openai.chat/role    "user"
+                        :openai.chat/content line}
+              response (-> (openai/chat component
+                                        :messages (into [{"role" "system" "content" prompt}]
+                                                        (map (fn [msg]
+                                                               (set/rename-keys msg
+                                                                                {:openai.chat/role    "role"    
+                                                                                 :openai.chat/content "content"
+                                                                                 :openai.chat/name    "name"})))
+                                                        
+                                                        (take-last memory (conj history user))))
+                           (get-in ["choices" 0 "message"])
+                           (set/rename-keys {"role"    :openai.chat/role
+                                             "content" :openai.chat/content
+                                             "name"    :openai.chat/name}))]
+          (println (str username ":") (:openai.chat/content response))
+          (recur (read-line)
+                 (conj history user response)))))))
