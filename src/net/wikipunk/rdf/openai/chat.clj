@@ -15,7 +15,12 @@
    :rdfs/domain             :openai.chat/Message
    :rdfs/range              :xsd/string
    :jsonschema/propertyName "role"
-   :jsonschema/oneOf        ["system" "user" "assistant"]})
+   :jsonschema/oneOf        [{:jsonschema/const "system"
+                              :rdf/type :jsonschema/DataSchema}
+                             {:jsonschema/const "user"
+                              :rdf/type :jsonschema/DataSchema}
+                             {:jsonschema/const "assistant"
+                              :rdf/type :jsonschema/DataSchema}]})
 
 (def content
   {:db/ident                :openai.chat/content
@@ -30,4 +35,7 @@
    :rdfs/domain             :openai.chat/Message
    :rdfs/range              :xsd/string
    :jsonschema/propertyName "name"
-   :jsonschema/oneOf        ["example_user" "example_assistant"]})
+   :jsonschema/oneOf        [{:jsonschema/const "example_user"
+                              :rdf/type :jsonschema/DataSchema}
+                             {:jsonschema/const "example_assistant"
+                              :rdf/type :jsonschema/DataSchema}]})
