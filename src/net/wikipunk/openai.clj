@@ -230,7 +230,8 @@ of repetition."
   [component & {:keys [model input]}]
   (make-request component
                 :post "/embeddings"
-                {:form-params  {:model model :input input}
+                {:form-params  {:model (or model "text-embedding-ada-002")
+                                :input input}
                  :content-type :json}))
 
 (defn files

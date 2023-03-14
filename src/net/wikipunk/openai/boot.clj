@@ -12,3 +12,8 @@
   {:rdf/type    :rdfa/PrefixMapping
    :rdfa/uri    "https://wikipunk.net/openai/chat/"
    :rdfa/prefix "openai.chat"})
+
+(def openai.risk
+  {:rdf/type    :rdfa/PrefixMapping
+   :rdfa/uri    "https://wikipunk.net/openai/risk/"
+   :rdfa/prefix "openai.risk"})
