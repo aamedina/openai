@@ -627,3 +627,49 @@
   {:db/ident        :openai.risk/Overreliance
    :rdf/type        :owl/Class
    :rdfs/subClassOf :dpvo/Harm})
+
+(def LayeredMitigations
+  "As models get more powerful and are adopted more widely, it is
+  critical to have multiple levels of defense, including changes to the
+  model itself, oversight and monitoring of model usage, and product
+  design for safe usage."
+  {:db/ident        :openai.risk/LayeredMitigations
+   :rdf/type        :owl/Class
+   :rdfs/subClassOf :dpvo/RiskMitigationMeasure})
+
+(def ModelRealWorldUsage
+  "Context of use such as who the users are, what the specific use
+  case is, where the model is being deployed, etc., is critical to
+  mitigating actual harms associated with language models and ensuring
+  their deployment is as beneficial as possible. It’s particularly
+  important to account for real-world vulnerabilities, humans roles in
+  the deployment context, and adversarial attempts. We especially
+  encourage the development of high quality evaluations and testing of
+  model mitigations on datasets in multiple languages."
+  {:db/ident        :openai.risk/ModelRealWorldUsage
+   :rdf/type        :owl/Class
+   :rdfs/subClassOf :dpvo/RiskMitigationMeasure})
+
+(def SafetyAssessments
+  "Ensure that safety assessments cover emergent risks: As models get
+  more capable, we should be prepared for emergent capabilities and
+  complex interactions to pose novel safety issues.  It’s important to
+  develop evaluation methods that can be targeted at advanced
+  capabilities that could be particularly dangerous if they emerged in
+  future models, while also being open-ended enough to detect
+  unforeseen risks."
+  {:db/ident        :openai.risk/SafetyAssessments
+   :rdf/type        :owl/Class
+   :rdfs/subClassOf :dpvo/RiskMitigationMeasure})
+
+(def PlanForWorstCaseScenario
+  "Be cognizant of, and plan for, capability jumps “in the wild”:
+  Methods like fine-tuning and chain-of-thought prompting could lead
+  to capability jumps in the same base model. This should be accounted
+  for explicitly in internal safety testing procedures and
+  evaluations. And a precautionary principle should be applied: above
+  a safety critical threshold, assurance of sufficient safety is
+  required."
+  {:db/ident        :openai.risk/PlanForWorstCaseScenario
+   :rdf/type        :owl/Class
+   :rdfs/subClassOf :dpvo/RiskMitigationMeasure})
